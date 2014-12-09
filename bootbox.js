@@ -43,7 +43,7 @@
     footer:
       "<div class='modal-footer'></div>",
     closeButton:
-      ' <button type="button" class="bootbox-close-button close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>',
+      " <button type='button' class='bootbox-close-button close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>",
     form:
       "<form class='bootbox-form'></form>",
     inputs: {
@@ -84,7 +84,7 @@
     showAlertTitle: true,
 
     // default alert title
-    alertTitle: 'Message',
+    alertTitle: "Message",
     // show the dialog immediately by default
     show: true,
     // dialog container
@@ -136,9 +136,11 @@
   }
 
   function uid (prefix) {
-    do prefix += ~~(Math.random() * 1000000)
-    while (document.getElementById(prefix))
-    return prefix
+    do {
+      prefix += ~~(Math.random() * 1000000);
+    }
+    while (document.getElementById(prefix));
+    return prefix;
   }
 
 
@@ -225,21 +227,21 @@
       if( typeof args[1] === "function" ){
            options[properties[1]] = args[1];
       }
-      if( $.type(args[1]) == 'object' ){
+      if( $.type(args[1]) === "object" ){
         options = $.extend(true,{},options,{buttons:args[1]}); // buttons
       }
 
       if( typeof args[0] === "string" ){
         options[properties[0]] = args[0];
       }
-      if( $.type(args[0]) == 'object' ){
+      if( $.type(args[0]) === "object" ){
         options = $.extend(true,{},options,args[0]); // message,  title
       }
     }else if(argn === 1){
       if(typeof args[0] === "string"){
         options[properties[0]] = args[0];
       }
-      if( $.type(args[0]) == 'object' ){
+      if( $.type(args[0]) === "object" ){
         options = args[0];
       }
 
@@ -278,7 +280,7 @@
       className: "bootbox-" + className,
       buttons: createLabels.apply(null, labels)
     };
-    var args = [].slice.call(args,0);
+    args = [].slice.call(args,0);
 
     // ensure the buttons properties generated, *after* merging
     // with user args are still valid against the supplied labels
@@ -341,9 +343,8 @@
     /**
      * overrides
      */
-    options.buttons.ok.callback = options.onEscape = $.isFunction(options.buttons.ok.callback) 
-      ? options.buttons.ok.callback 
-      : function() {
+    options.buttons.ok.callback = options.onEscape = $.isFunction(options.buttons.ok.callback) ? 
+    options.buttons.ok.callback : function() {
         if ($.isFunction(options.callback)) {
           return options.callback();
         }
@@ -362,15 +363,13 @@
     /**
      * overrides; undo anything the user tried to set they shouldn't have
      */
-    options.buttons.cancel.callback = options.onEscape = $.isFunction( options.buttons.cancel.callback )
-      ? options.buttons.cancel.callback 
-      : function() {
+    options.buttons.cancel.callback = options.onEscape = $.isFunction( options.buttons.cancel.callback ) ? 
+    options.buttons.cancel.callback : function() {
         return options.callback(false);
       };
 
-    options.buttons.confirm.callback =  $.isFunction( options.buttons.confirm.callback ) 
-      ? options.buttons.confirm.callback 
-      : function() {
+    options.buttons.confirm.callback =  $.isFunction( options.buttons.confirm.callback ) ? 
+    options.buttons.confirm.callback  : function() {
         return options.callback(true);
       };
 
@@ -429,11 +428,13 @@
         originalCancelCallback = options.buttons.cancel.callback;
 
     options.buttons.cancel.callback = options.onEscape = function() {
-      if( $.isFunction( originalCancelCallback ) ) 
+      if( $.isFunction( originalCancelCallback ) ) {
         return originalCancelCallback(null);
+      }
       
-      if( $.isFunction( originalConfirmCallback ) ) 
+      if( $.isFunction( originalConfirmCallback ) ) {
         return originalConfirmCallback(null);
+      }
 
       return options.callback(null);
     };
@@ -470,8 +471,9 @@
 
     options.buttons.confirm.callback =  function() {
         var value = callbackValue();
-          if( $.isFunction( originalConfirmCallback ) ) 
+          if( $.isFunction( originalConfirmCallback ) ) {
             return originalConfirmCallback(value);
+          }
 
       return options.callback(value);
     };
@@ -619,8 +621,8 @@
 
   exports.dialog = function(options) {
     options = sanitize(options);
-    if(!options.title && options.showAlertTitle && options.alertTitle && options.className && ~options.className.indexOf('alert')){
-      options.title = options.alertTitle
+    if(!options.title && options.showAlertTitle && options.alertTitle && options.className && ~options.className.indexOf("alert")){
+      options.title = options.alertTitle;
     }
 
     var dialog = $(templates.dialog);
@@ -674,10 +676,10 @@
     }
 
     if (options.title) {
-      var globalId = uid('bootbox-dialog');
+      var globalId = uid("bootbox-dialog");
       dialog.attr({
-        'aria-labelledby': globalId
-      })
+        "aria-labelledby": globalId
+      });
       dialog.find(".modal-title").html(options.title).attr({
         id: globalId
       });
